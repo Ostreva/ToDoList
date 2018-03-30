@@ -1,0 +1,30 @@
+﻿@model IEnumerable<string>
+<style>
+    ul{list-style-type: none;
+       margin: 0;
+       padding: 0;
+    }
+    li{
+        display: inline;
+    }
+</style>
+<ul>
+    <li>@Html.ActionLink("Completed", "Completed", "TaskManager")</li>
+    <li>@Html.ActionLink("All", "List", "TaskManager")</li>
+    <li>@Html.ActionLink("Ongoing", "Ongoing", "TaskManager")</li>
+</ul>
+
+<!-- Not working need to fix routing issue-->
+@*@foreach (var item in Model)
+{
+    @Html.RouteLink(item, new
+    {
+    controller = "TaskManger",
+    action = "List",
+    category = item,
+    page = 1
+    }, new {
+        @class = "btn"
+    })
+    
+}*@

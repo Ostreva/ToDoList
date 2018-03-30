@@ -1,0 +1,47 @@
+﻿@model ToDoList.Models.TasksListViewModel
+
+@{
+    ViewBag.Title = "ToDoList";
+}
+<table id="taskTable" class="table">
+    <thead>
+        <tr>
+            <th>Task</th>
+            <th>Description</th>
+            <th>Due Date</th>
+            <th>Completion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.Tasks)
+        {
+            <tr>
+                <td class="text-center">@x.Task</td>
+                <td>@x.Description</td>
+                <td>@x.Date</td>
+                <td>@x.Completed</td>
+                @if (!x.Completed)
+                {
+                    <td>
+                    @using (Html.BeginForm("Done", "TaskManager"))
+                    {
+                        
+                        @Html.Hidden("TaskId", x.TaskId)
+                        <input type="submit" class="btn btn-success" value="Done" />
+                        
+                    }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    @Html.ActionLink("Add Task", "Create", null,new { @class = "btn btn-default" })
+</div>
+
+
+<div>
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("List", 
+        new { page = x, category = Model.CurrentNav}))
+</div>
